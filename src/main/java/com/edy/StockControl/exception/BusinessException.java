@@ -1,4 +1,4 @@
-package com.edy.stock_control.exception;
+package com.edy.StockControl.exception;
 
 public class BusinessException extends RuntimeException {
     public BusinessException(String message) {
