@@ -56,15 +56,15 @@ public class ProductService {
     }
 
     @Transactional
-    public void delete(UUID id) {
-        Product product = repository.findById(id)
+    public void delete(String sku) {
+        Product product = repository.findBySku(sku)
                 .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
         repository.delete(product);
     }
 
     @Transactional
-    public SummaryProduct update(UUID id, UpdateProduct update) {
-        Product product = repository.findById(id)
+    public SummaryProduct update(String sku, UpdateProduct update) {
+        Product product = repository.findBySku(sku)
                 .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
 
         if (update.price() != null) {
@@ -76,16 +76,16 @@ public class ProductService {
     }
 
     @Transactional
-    public void addStock(UUID id, int amount) {
-        Product product = repository.findById(id)
+    public void addStock(String sku, int amount) {
+        Product product = repository.findBySku(sku)
                 .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
 
         product.increaseQuantity(amount);
     }
 
     @Transactional
-    public void removeStock(UUID id, int amount) {
-        Product product = repository.findById(id)
+    public void removeStock(String sku, int amount) {
+        Product product = repository.findBySku(sku)
                 .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
 
         product.decreaseQuantity(amount);
