@@ -63,4 +63,24 @@ public class Product implements Serializable {
     public BigDecimal getCalc() {
         return price.multiply(BigDecimal.valueOf(this.quantity));
     }
+
+    public void increaseQuantity(int amount) {
+        if (amount <= 0) {
+                throw new IllegalArgumentException("Quantidade inválida");
+        }
+
+        this.quantity += amount;
+    }
+
+    public void decreaseQuantity(int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Quantidade inválida");
+        }
+
+        if (this.quantity - amount < 0) {
+            throw new IllegalArgumentException("Estoque insuficiente");
+        }
+
+        this.quantity -= amount;
+    }
 }
