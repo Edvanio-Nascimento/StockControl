@@ -3,16 +3,15 @@ package com.edy.StockControl.service;
 import com.edy.StockControl.dto.product.*;
 import com.edy.StockControl.entity.Product;
 import com.edy.StockControl.enums.ProductViewEnum;
+import com.edy.StockControl.exception.DuplicateResourceException;
 import com.edy.StockControl.interfaces.ProductViewInterface;
 import com.edy.StockControl.repository.ProductRepository;
-import com.edy.stock_control.exception.DuplicateResourceException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class ProductService {

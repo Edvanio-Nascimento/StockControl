@@ -1,6 +1,7 @@
 package com.edy.StockControl.exception;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,16 +17,16 @@ public class GlobalExceptionHandle {
         return problem;
     }
 
-    @ExceptionHandler(com.edy.stock_control.exception.DuplicateResourceException.class)
-    public ProblemDetail handleDuplicate(com.edy.stock_control.exception.DuplicateResourceException ex) {
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ProblemDetail handleDuplicate(DuplicateResourceException ex) {
         ProblemDetail problem = ProblemDetail
                 .forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
         problem.setTitle("Duplicidade de dados");
         return problem;
     }
 
-    @ExceptionHandler(com.edy.stock_control.exception.BusinessException.class)
-    public ProblemDetail handleBusinessException(com.edy.stock_control.exception.BusinessException ex) {
+    @ExceptionHandler(BusinessException.class)
+    public ProblemDetail handleBusinessException(BusinessException ex) {
         ProblemDetail problem = ProblemDetail
                 .forStatusAndDetail(HttpStatus.UNPROCESSABLE_ENTITY, ex.getMessage());
         problem.setTitle("Violação de regra de negócio");
@@ -45,6 +46,14 @@ public class GlobalExceptionHandle {
         ProblemDetail problem = ProblemDetail
                 .forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
         problem.setTitle("Conflito de estado");
+        return problem;
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ProblemDetail handleDataIntegrity(DataIntegrityViolationException ex) {
+        ProblemDetail problem = ProblemDetail
+                .forStatusAndDetail(HttpStatus.CONFLICT, "SKU já existe");
+        problem.setTitle("Violação de restrição de unicidade");
         return problem;
     }
 }
