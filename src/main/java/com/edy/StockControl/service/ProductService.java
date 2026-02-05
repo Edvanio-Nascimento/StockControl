@@ -68,6 +68,10 @@ public class ProductService {
         Product product = repository.findBySku(sku)
                 .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
 
+        if (update.description() != null) {
+            product.setDescription(update.description());
+        }
+
         if (update.price() != null) {
             product.setPrice(update.price());
         }
