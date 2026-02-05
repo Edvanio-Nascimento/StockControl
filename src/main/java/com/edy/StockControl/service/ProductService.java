@@ -49,9 +49,11 @@ public class ProductService {
     }
 
     private ProductViewInterface buildView(Product product, ProductViewEnum view) {
-        return ProductViewEnum.COMPACT.equals(view)
-                ? DetailsProduct.fromEntity(product)
-                : AuditingProduct.fromEntity(product);
+        return switch (view) {
+            case DETAILS -> DetailsProduct.fromEntity(product);
+            case AUDIT -> AuditingProduct.fromEntity(product);
+            case STOCK -> StockProduct.fromEntity(product);
+        };
     }
 
     @Transactional

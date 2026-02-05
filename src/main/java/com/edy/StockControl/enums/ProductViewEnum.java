@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum ProductViewEnum {
 
-    COMPACT,
-    FULL;
+    DETAILS,
+    AUDIT,
+    STOCK;
 
     @JsonCreator
     public static ProductViewEnum from(String value) {

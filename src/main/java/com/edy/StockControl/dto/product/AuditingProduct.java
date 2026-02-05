@@ -10,22 +10,17 @@ public record AuditingProduct(
 
         String sku,
         String name,
-        BigDecimal price,
-        Integer quantity,
         LocalDateTime created,
-        LocalDateTime updated,
-        BigDecimal calc
+        LocalDateTime updated
+
 ) implements ProductViewInterface {
 
     public static AuditingProduct fromEntity(Product product) {
         return new AuditingProduct(
                 product.getSku(),
                 product.getName(),
-                product.getPrice(),
-                product.getQuantity(),
                 product.getCreated(),
-                product.getUpdated(),
-                product.getCalc()
+                product.getUpdated()
         );
     }
 }
